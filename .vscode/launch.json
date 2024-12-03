@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GCC Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/a.out", // A lefordított futtatható fájl
+            "args": [], // Argumentumok a programhoz, ha vannak
+            "stopAtEntry": false, // Indításkor álljon meg az első belépési pontnál
+            "cwd": "${workspaceFolder}", // A jelenlegi munkakönyvtár
+            "environment": [],
+            "externalConsole": false, // Külső konzolt használjon-e
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb", // A GDB elérési útja
+            "setupCommands": [
+                {
+                    "description": "Engedélyezd a GDB optimalizált formázását",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "C++ Build" // Előzetes feladat, hogy fordítsa a kódot
+        }
+    ]
+}
