@@ -5,25 +5,30 @@
 
 using namespace std;
 
-int isSafe(vector<int> input) {
-    bool asc = input[0] < input[1];
-
-    for(int n = -1; n < input.size(); n++) {
-        vector<int> numbers = input;
-        if (n != -1) 
-            numbers.erase(numbers.begin() + n);
+int isSafeRow(vector<int> numbers) {
+    bool asc = numbers[0] < numbers[1];
+    for(int i = 0; i < numbers.size() - 1; i++) {
+        int diff = abs(numbers[i] - numbers[i+1]);
         
-        for(int i = 0; i < numbers.size() - 1; i++) {
-            int diff = abs(numbers[i] - numbers[i+1]);
-
-            if(diff > 3 || diff < 1) 
-                return 0;
-            
-            if ((asc && numbers[i] > numbers[i+1]) || (!asc && numbers[i] < numbers[i+1])) 
-                return 0;
-        }
+        if(diff > 3 || diff < 1) 
+            return 0;
+        
+        if ((asc && numbers[i] > numbers[i+1]) || (!asc && numbers[i] < numbers[i+1])) 
+            return 0;
     }
     return 1;
+}
+
+int isSafe(vector<int> numbers) {
+    if (isSafeRow(numbers) == 1) 
+        return 1;  
+    for(int i = 0; i < numbers.size(); i++) {
+        vector<int> input = numbers;
+        input.erase(input.begin() + i);
+        if (isSafeRow(input) == 1)
+            return 1;
+    }
+    return 0;
 }
 
 int main(int argc, char* argv[]) {
@@ -37,7 +42,7 @@ int main(int argc, char* argv[]) {
         
         while (ss >> num) 
             numbers.push_back(num);
-        //cout << (isSafe(numbers) == 1 ? "safe\n" : "unsafe\n");
+        cout << (isSafe(numbers) == 1 ? "safe\n" : "unsafe\n");
         ans += isSafe(numbers);
         }
     cout << ans << "\n";
