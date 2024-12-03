@@ -20,11 +20,10 @@ unsigned extract_numbers(const string& input) {
                 int num2 = stoi(matches[2].str());
                 ans += num1 * num2;
             }
-        } else if (matches.str() == "do()") {
+        } else if (matches.str() == "do()") 
             enabled = true;
-        } else if (matches.str() == "don't()") {
+        else if (matches.str() == "don't()") 
             enabled = false;
-        }
         searchStart = matches.suffix().first;
     }
     return ans;
