@@ -4,7 +4,7 @@
 
 using namespace std;
 
-unsigned checkXmas(const vector<vector<char>>& input, int x0, int y0) {
+bool checkXmas(const vector<vector<char>>& input, int x0, int y0) {
     bool right = x0 <= input[0].size() - 4;
     bool left = x0 >= 3;
     bool up = y0 >= 3;
