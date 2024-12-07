@@ -2,88 +2,62 @@
 #include <fstream>
 #include <vector>
 #include <string>
+#include <set>
 
 using namespace std;
 
-bool inBounds(unsigned x, unsigned y, unsigned dir, const vector<vector<char>>& input) {
+bool inBounds(int x, int y, int dir, const vector<vector<char>>& input) {
     switch (dir) {
-        case 1: // fel
-            return y > 0;
-        case 2: // jobbra
-            return x + 1 < input[0].size();
-        case 3: // le
-            return y + 1 < input.size();
-        case 4: // balra
-            return x > 0;
+        case 1: return y > 0;                       //fel
+        case 2: return x + 1 < input[0].size();     //jobbra
+        case 3: return y + 1 < input.size();        //le
+        case 4: return x > 0;                       //balra
     }
     return false;
 }
 
-int findObstacles()
+bool isLoop(const vector<vector<char>>& input) {
+    int x = 0, y = 0, dir = 1;
+    set<pair<int, int>> visited;    
 
-int guardPath(const vector<vector<char>>& input) {
-    unsigned x = 0, y = 0;
-    unsigned direction = 1; // 1=fel, 2=jobbra, 3=le, 4=balra
-    vector<vector<char>> grid = input;
-
-    for (unsigned i = 0; i < input.size(); i++) 
-        for (unsigned n = 0; n < input[i].size(); n++) 
-            if (input[i][n] == '^') {
-                y = i;
-                x = n;
+    for(int y_ = 0; y_ < input.size(); y_++) {
+        for(int x_ = 0; x_ < input[0].size(); x_++) {
+            if(input[y_][x_] == '^') {
+                x = x_;
+                y = y_;
                 break;
             }
-
-    while (inBounds(x, y, direction, grid)) {
-        switch (direction) {
-            case 1: // fel
-                if (grid[y - 1][x] != '#') {
-                    grid[y][x] = 'x';
-                    y--;
-                } else direction = (direction % 4) + 1;
-                break;
-            case 2: // jobbra
-                if (grid[y][x + 1] != '#') {
-                    grid[y][x] = 'x';
-                    x++;
-                } else direction = (direction % 4) + 1;
-                break;
-            case 3: // le
-                if (grid[y + 1][x] != '#') {
-                    grid[y][x] = 'x';
-                    y++;
-                } else direction = (direction % 4) + 1;
-                break;
-            case 4: // balra
-                if (grid[y][x - 1] != '#') {
-                    grid[y][x] = 'x';
-                    x--;
-                } else direction = (direction % 4) + 1;
-                break;
         }
     }
 
-    unsigned ans = 1; //kivetelesen azert 1 mert a kezdopozicio is kell
-    for (unsigned y = 0; y < grid.size(); y++) {
-        for (unsigned x = 0; x < grid[y].size(); x++) {
-            ans += (grid[y][x] == 'x');
-        }
+    while(inBounds(x, y, dir, input)) {
+        pair<int, int> searchPair = {x + y * input[0].size(), dir};
+        auto it = visited.find(searchPair);
+        
+        if (it != visited.end()) 
+            return 1;
+
+        if (dir == 1 && input[y-1][x] != '#') {visited.insert(searchPair);y--;} else
+        if (dir == 2 && input[y][x+1] != '#') {visited.insert(searchPair);x++;} else
+        if (dir == 3 && input[y+1][x] != '#') {visited.insert(searchPair);y++;} else
+        if (dir == 4 && input[y][x-1] != '#') {visited.insert(searchPair);x--;} else
+        dir = (dir % 4) + 1;
     }
 
-    return ans;
+    return 0;
 }
 
 int main(int argc, char* argv[]) {
-    ifstream file(argv[1]);
+    ifstream file("test.txt");
     vector<vector<char>> input;
     string line;
+
     while (getline(file, line)) {
         vector<char> row(line.begin(), line.end());
         input.push_back(row);
     }
     file.close();
 
-    cout << guardPath(input) << endl;
-
+    cout << isLoop(input) << "\n";
     return 0;
 }
