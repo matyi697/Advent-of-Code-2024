@@ -48,9 +48,10 @@ bool isLoop(const vector<vector<char>>& input) {
 }
 
 int main(int argc, char* argv[]) {
-    ifstream file("test.txt");
+    ifstream file(argv[1]);
     vector<vector<char>> input;
     string line;
+    unsigned ans = 0;
 
     while (getline(file, line)) {
         vector<char> row(line.begin(), line.end());
@@ -58,6 +59,12 @@ int main(int argc, char* argv[]) {
     }
     file.close();
 
-    cout << isLoop(input) << "\n";
+    for(int y = 0; y < input.size(); y++) 
+        for(int x = 0; x < input[y].size(); x++) {
+            vector<vector<char>> temp = input;
+            temp[y][x] = '#';
+            ans += isLoop(temp);
+        }
+    cout << ans << "\n";
     return 0;
 }
