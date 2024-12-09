@@ -11,18 +11,14 @@ int checkValid(const vector<pair<int, int>> &rule, const vector<int> &line) {
     for (int i = 0; i < line.size() - 1; i++) {
         pair<int, int> target = {line[i], line[i + 1]};
         auto it = find(rule.begin(), rule.end(), target);
-        if (it == rule.end())
+        if (it == rule.end()) 
             return 0;
     }
-    return line[(line.size() - 1) / 2];
-}
-
-int fixBadSequene(const vector<pair<int, int>> &rule, const vector<int> &line) {
-
+    return 1;
 }
 
 int main(int argc, char *argv[]) {
-    ifstream file(argv[1]);
+    ifsstream file(argv[1]);
     unsigned ans = 0;
     vector<pair<int, int>> rule;
     vector<vector<int>> printSequence;
@@ -52,11 +48,11 @@ int main(int argc, char *argv[]) {
             printSequence.push_back(row);
         }
     }
-
-    for (int i = 0; i < printSequence; i++) {
-        if ()
-    }
-
     file.close();
+
+    for (int i = 0; i < printSequence.size(); i++)
+        ans += checkValid(rule, printSequence[i]);
+
+    cout << ans << "\n";
     return 0;
 }
