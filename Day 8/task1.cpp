@@ -5,7 +5,7 @@
 
 using namespace std;
 
-unsigned countAntinode(vector<vector<char>>& input) {
+unsigned countAntinode(vector<vector<char>> &input) {
     set<pair<int, int>> uniquePoints;
 
     for (int y = 0; y < input.size(); y++) {
@@ -13,13 +13,13 @@ unsigned countAntinode(vector<vector<char>>& input) {
             if (input[y][x] != '.' && input[y][x] != '#') {
                 char temp = input[y][x];
                 for (int yy = 0; yy < input.size(); yy++) {
-                    for (int xx = 0; xx < input[yy].size(); xx++) { 
+                    for (int xx = 0; xx < input[yy].size(); xx++) {
                         if (x == xx && y == yy) continue;
-                        if (input[yy][xx] == temp) { 
-                            int dx = xx - x; 
+                        if (input[yy][xx] == temp) {
+                            int dx = xx - x;
                             int dy = yy - y;
-                            if (x-dx >= 0 && x-dx < input[0].size() && y-dy >= 0 && y-dy < input.size()) 
-                                uniquePoints.insert({y-dy, x-dx});
+                            if (x - dx >= 0 && x - dx < input[0].size() && y - dy >= 0 && y - dy < input.size())
+                                uniquePoints.insert({y - dy, x - dx});
                         }
                     }
                 }
@@ -30,9 +30,9 @@ unsigned countAntinode(vector<vector<char>>& input) {
 }
 
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     ifstream file(argv[1]);
-
+    unsigned ans = 0;
     vector<vector<char>> input;
     string line;
     while (getline(file, line)) {
@@ -40,7 +40,6 @@ int main(int argc, char* argv[]) {
         input.push_back(row);
     }
     file.close();
-    unsigned ans = 0; 
 
     ans = countAntinode(input);
     cout << "Ans: " << ans << "\n";

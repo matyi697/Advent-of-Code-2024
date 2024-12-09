@@ -5,27 +5,23 @@
 
 using namespace std;
 
-bool inBounds(unsigned x, unsigned y, unsigned dir, const vector<vector<char>>& input) {
+bool inBounds(unsigned x, unsigned y, unsigned dir, const vector<vector<char>> &input) {
     switch (dir) {
-        case 1: // fel
-            return y > 0;
-        case 2: // jobbra
-            return x + 1 < input[0].size();
-        case 3: // le
-            return y + 1 < input.size();
-        case 4: // balra
-            return x > 0;
+        case 1: return y > 0;
+        case 2: return x + 1 < input[0].size();
+        case 3: return y + 1 < input.size();
+        case 4: return x > 0;
     }
     return false;
 }
 
-int guardPath(const vector<vector<char>>& input) {
+int guardPath(const vector<vector<char>> &input) {
     unsigned x = 0, y = 0;
     unsigned direction = 1; // 1=fel, 2=jobbra, 3=le, 4=balra
     vector<vector<char>> grid = input;
 
-    for (unsigned i = 0; i < input.size(); i++) 
-        for (unsigned n = 0; n < input[i].size(); n++) 
+    for (unsigned i = 0; i < input.size(); i++)
+        for (unsigned n = 0; n < input[i].size(); n++)
             if (input[i][n] == '^') {
                 y = i;
                 x = n;
@@ -62,16 +58,14 @@ int guardPath(const vector<vector<char>>& input) {
     }
 
     unsigned ans = 1; //kivetelesen azert 1 mert a kezdopozicio is kell
-    for (unsigned y = 0; y < grid.size(); y++) {
-        for (unsigned x = 0; x < grid[y].size(); x++) {
+    for (unsigned y = 0; y < grid.size(); y++) 
+        for (unsigned x = 0; x < grid[y].size(); x++) 
             ans += (grid[y][x] == 'x');
-        }
-    }
 
     return ans;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     ifstream file(argv[1]);
 
     vector<vector<char>> input;

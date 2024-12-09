@@ -9,22 +9,21 @@ typedef unsigned long long u64;
 
 u64 evaluateExpression(vector<int> numbers, vector<int> operators) {
     u64 ans = numbers[0];
-    for(int i = 0; i < numbers.size()-1; i++) {
+    for (int i = 0; i < numbers.size() - 1; i++) {
         if (operators[i] == 0) {
-            ans += numbers[i+1];
-        } else
-        if (operators[i] == 1) {
-            ans *= numbers[i+1];
+            ans += numbers[i + 1];
+        } else if (operators[i] == 1) {
+            ans *= numbers[i + 1];
         }
     }
     return ans;
 }
 
-void stepOperator(std::vector<int>& opr) {
+void stepOperator(std::vector<int> &opr) {
     int n = opr.size();
-    for (int i = n - 1; i >= 0; --i) { 
+    for (int i = n - 1; i >= 0; --i) {
         if (opr[i] == 0) {
-            opr[i] = 1; 
+            opr[i] = 1;
             return;
         } else
             opr[i] = 0;
@@ -32,8 +31,8 @@ void stepOperator(std::vector<int>& opr) {
 }
 
 bool isPossible(u64 sum, vector<int> numbers) {
-    vector<int> operators(numbers.size()-1, 0);
-    int maxIter = 1 << (numbers.size()-1);
+    vector<int> operators(numbers.size() - 1, 0);
+    int maxIter = 1 << (numbers.size() - 1);
 
     for (int i = 0; i < maxIter; ++i) {
         if (evaluateExpression(numbers, operators) == sum) {
@@ -44,7 +43,7 @@ bool isPossible(u64 sum, vector<int> numbers) {
     return 0;
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     ifstream file(argv[1]);
     string line;
     unsigned long long ans = 0;

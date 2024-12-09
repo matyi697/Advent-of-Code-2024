@@ -1,12 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <sstream> 
+#include <sstream>
 #include <algorithm>
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     ifstream file(argv[1]);
     vector<int> colA;
     vector<int> colB;
@@ -19,7 +19,7 @@ int main(int argc, char* argv[]) {
         if (iss >> tempA >> tempB) {
             colA.push_back(tempA);
             colB.push_back(tempB);
-        } 
+        }
     }
 
     file.close();
@@ -27,9 +27,9 @@ int main(int argc, char* argv[]) {
     sort(colA.begin(), colA.end());
     sort(colB.begin(), colB.end());
 
-    for (int a = 0; a < colA.size(); a++) 
-        ans += abs(colA[a] - colB[a]); 
-    
+    for (int a = 0; a < colA.size(); a++)
+        ans += abs(colA[a] - colB[a]);
+
     cout << ans << "\n";
     return 0;
 }

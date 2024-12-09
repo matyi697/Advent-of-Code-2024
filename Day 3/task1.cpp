@@ -6,7 +6,7 @@
 
 using namespace std;
 
-unsigned extract_numbers(const string& input) {
+unsigned extract_numbers(const string &input) {
     regex pattern(R"(mul\((-?\d+),(-?\d+)\))");
     smatch matches;
     unsigned ans = 0;
@@ -21,8 +21,8 @@ unsigned extract_numbers(const string& input) {
     return ans;
 }
 
-int main(int argc, char* argv[]) {
-    ifstream file (argv[1]);
+int main(int argc, char *argv[]) {
+    ifstream file(argv[1]);
     ostringstream oss;
     oss << file.rdbuf();
     string input = oss.str();

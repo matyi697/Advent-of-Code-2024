@@ -6,7 +6,7 @@
 
 using namespace std;
 
-unsigned extract_numbers(const string& input) {
+unsigned extract_numbers(const string &input) {
     regex pattern(R"(mul\((-?\d+),(-?\d+)\)|do\(\)|don't\(\))");
     auto searchStart = input.begin();
     smatch matches;
@@ -20,17 +20,17 @@ unsigned extract_numbers(const string& input) {
                 int num2 = stoi(matches[2].str());
                 ans += num1 * num2;
             }
-        } else if (matches.str() == "do()") 
+        } else if (matches.str() == "do()")
             enabled = true;
-        else if (matches.str() == "don't()") 
+        else if (matches.str() == "don't()")
             enabled = false;
         searchStart = matches.suffix().first;
     }
     return ans;
 }
 
-int main(int argc, char* argv[]) {
-    ifstream file (argv[1]);
+int main(int argc, char *argv[]) {
+    ifstream file(argv[1]);
     ostringstream oss;
     oss << file.rdbuf();
     string input = oss.str();

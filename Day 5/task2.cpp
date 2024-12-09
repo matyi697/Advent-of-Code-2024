@@ -7,17 +7,31 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int checkValid(const vector<pair<int, int>> &rule, const vector<int> &line) {
+    for (int i = 0; i < line.size() - 1; i++) {
+        pair<int, int> target = {line[i], line[i + 1]};
+        auto it = find(rule.begin(), rule.end(), target);
+        if (it == rule.end())
+            return 0;
+    }
+    return line[(line.size() - 1) / 2];
+}
+
+int fixBadSequene(const vector<pair<int, int>> &rule, const vector<int> &line) {
+
+}
+
+int main(int argc, char *argv[]) {
     ifstream file(argv[1]);
     unsigned ans = 0;
-    vector<pair<int, int>> rule;    
-    vector<vector<int>> printSequence;     
+    vector<pair<int, int>> rule;
+    vector<vector<int>> printSequence;
     string line;
-    bool newPart = false;         
+    bool newPart = false;
 
     while (getline(file, line)) {
         if (line.empty()) {
-            newPart = true;  
+            newPart = true;
             continue;
         }
 
@@ -26,18 +40,23 @@ int main(int argc, char* argv[]) {
             int a, b;
             char delimiter;
             ss >> a >> delimiter >> b;
-            if (delimiter == '|') 
+            if (delimiter == '|')
                 rule.emplace_back(a, b);
         } else {
             stringstream ss(line);
             vector<int> row;
             string number;
-            while (getline(ss, number, ',')) 
+            while (getline(ss, number, ','))
                 row.push_back(stoi(number));
 
             printSequence.push_back(row);
         }
     }
+
+    for (int i = 0; i < printSequence; i++) {
+        if ()
+    }
+
     file.close();
     return 0;
 }
