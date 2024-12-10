@@ -18,12 +18,8 @@ unsigned countAntinode(vector<vector<char>> &input) {
                         if (input[yy][xx] == temp) {
                             int dx = xx - x;
                             int dy = yy - y;
-                            for(int i = 0; x-i*dx>=0 && x-i*dx<input[0].size() && y-i*dy>=0 && y-i*dy<input.size(); i++) {
-                                /*if (input[y - i*dy][x - i*dx] == '.') {
-                                    input[y - i*dy][x - i*dx] = '#';
-                                }*/
-                                uniquePoints.insert({y - i*dy, x - i*dx});
-                            }                                
+                            for(int i = 0; x-i*dx>=0 && x-i*dx<input[0].size() && y-i*dy>=0 && y-i*dy<input.size(); i++) 
+                                uniquePoints.insert({y - i*dy, x - i*dx});                     
                         }
                     }
                 }
@@ -45,11 +41,6 @@ int main(int argc, char *argv[]) {
     }
     file.close();
     ans = countAntinode(input);
-    /*for (int y = 0; y < input.size(); y++) {
-        for (int x = 0; x < input[y].size(); x++)
-            cout << input[y][x];
-        cout << "\n";
-    }*/
     cout << "Ans: " << ans << "\n";
     return 0;
 }
